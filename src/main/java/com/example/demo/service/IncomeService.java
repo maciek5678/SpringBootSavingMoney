@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IncomeService {
@@ -53,6 +54,19 @@ public class IncomeService {
             incomes = incomeRepository.findByUserIdAndDateOfIncomeBetween(Id, startDate, endDate);
         }
         return incomes;
+    }
+    public Optional<IncomeCategory> incomeCategoryFindByName(String name) {
+        return incomeCategoryRepository.findByName(name);
+    }
+    public Income save(Income income) {
+         return incomeRepository.save(income);
+    }
+    public List<IncomeCategory> findAllIncomeCategories() {
+        return incomeCategoryRepository.findAll();
+    }
+
+    public List<Income> saveAllIncomes(List<Income> incomes) {
+       return  incomeRepository.saveAll(incomes);
     }
 
 }
