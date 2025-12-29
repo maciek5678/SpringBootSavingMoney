@@ -1,6 +1,7 @@
 package com.example.demo.security;
 
 import com.example.demo.service.UserDetailsServiceImpl;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,6 +54,19 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
+                )        .exceptionHandling(ex -> ex
+                        // 🔴 401 – NIEZALOGOWANY
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"error\": \"Nie jesteś zalogowany\"}");
+                        })
+                        // 🔴 403 – BRAK UPRAWNIEŃ
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"error\": \"Odmowa dostępu\"}");
+                        })
                 );
 
         http.authenticationProvider(authenticationProvider());

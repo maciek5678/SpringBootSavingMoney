@@ -68,7 +68,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             cookie.setSecure(true);
             cookie.setPath("/");
             cookie.setMaxAge(3600); // ważność cookie (nie JWT!)
-            System.out.println("Odświeżanie tokena");
             response.addCookie(cookie);
         }
     }

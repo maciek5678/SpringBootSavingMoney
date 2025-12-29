@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class UserService {
@@ -24,4 +26,8 @@ public class UserService {
 
          return user;
      }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }

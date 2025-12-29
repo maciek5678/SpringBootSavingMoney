@@ -55,7 +55,6 @@ public class ExpenseController {
     public ResponseEntity<?> deleteIncome(@PathVariable long expenseId) {
         User user = userService.getUserFromToken();
         int income = expenseService.deleteExpense(expenseId, user);
-        System.out.println("incomeId" + expenseId + "userId" + user.getId());
         return ResponseEntity.ok("Liczba usuniętych rekordów " +  income);
     }
 }

@@ -27,4 +27,6 @@ public interface IncomeRepository extends JpaRepository<Income, Long> {
     int deleteByUserIdAndId(@Param("userId") Long userId,
                             @Param("id") Long id);
 
+    Income save(User User);
+
 }
